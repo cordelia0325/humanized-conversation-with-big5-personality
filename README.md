@@ -194,22 +194,24 @@ The implementation uses **Parameter-Efficient Fine-Tuning (PEFT)** with QLoRA:
 | Grad Accumulation | `gradient_accumulation_steps` | 4 | Table 14 |
 | Training Time | - | ~8 hours | Section E.2 |
 
-### Evaluation
+### Evaluation (requires OpenAI API Key)
 
 ```bash
+export OPENAI_API_KEY="your-api-key"
+
 # Run evaluation on test set
 python run_evaluation.py \
   --test-dataset-path data/test_dataset.json \
-  --model-path outputs/run_YYYYMMDD_HHMMSS/response_generator \
-  --bert-path outputs/run_YYYYMMDD_HHMMSS/memory_selector/bert_memory_selector.pt \
+  --model-path models/run_YYYYMMDD_HHMMSS/response_generator \
+  --bert-path models/run_YYYYMMDD_HHMMSS/memory_selector/bert_memory_selector.pt \
   --n-trials 3 \
   --questions-per-dim 5
 
 # Generate evaluation report
 python run_evaluation.py \
   --test-dataset-path data/test_dataset.json \
-  --model-path outputs/run_YYYYMMDD_HHMMSS/response_generator \
-  --output-report results/evaluation_report.json
+  --model-path models/run_YYYYMMDD_HHMMSS/response_generator \
+  --output-report ouputs/evaluation_report.json
 ```
 
 ### Inference
@@ -227,8 +229,8 @@ persona = personas[0]
 model = PersonalityModelFactory.create_model(
     load_llama=True,
     load_bert=True,
-    llama_path='outputs/run_YYYYMMDD_HHMMSS/response_generator',
-    bert_path='outputs/run_YYYYMMDD_HHMMSS/memory_selector/bert_memory_selector.pt'
+    llama_path='models/run_YYYYMMDD_HHMMSS/response_generator',
+    bert_path='models/run_YYYYMMDD_HHMMSS/memory_selector/bert_memory_selector.pt'
 )
 agent = PersonalityModelFactory.create_agent(persona, model)
 
@@ -374,7 +376,7 @@ for split in ['train', 'validation', 'test']:
     combos = Counter(p['big-5'] for p in data)
     print(f'{split}: {len(combos)}/32 combinations')
     assert len(combos) == 32, f'Missing combinations in {split}!'
-print('✓ All splits have balanced representation')
+print('All splits have balanced representation')
 "
 ```
 
