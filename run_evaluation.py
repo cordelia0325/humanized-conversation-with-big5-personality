@@ -455,6 +455,12 @@ def main():
         help='Number of BFI questions per dimension (Default: 5)'
     )
     parser.add_argument(
+        '--n-trials',
+        type=int,
+        default=3,
+        help='Number of independent trials per persona (Default: 3, per paper Section 9.1.2)'
+    )
+    parser.add_argument(
         '--llama-path',
         help='Path to the fine-tuned Llama-3 model'
     )
