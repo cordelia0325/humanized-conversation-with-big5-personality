@@ -429,7 +429,7 @@ def main():
     
     parser.add_argument(
         '--personas-path',
-        default=BIG5_1024_PERSONA_PATH,
+        default=BIG5_PERSONA_PATH,
         help='Path to the persona JSON dataset'
     )
     parser.add_argument(
